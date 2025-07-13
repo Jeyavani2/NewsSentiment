@@ -27,7 +27,7 @@ def get_news(country,category, from_date, to_date, api_key,country_name):
        url= "https://gnews.io/api/v4/top-headlines"
        params = {
            "token": API_KEY,
-           "q":f"{category} AND {country_name.capitalize()}",
+           "q":f"{category} AND {country_name}",
            "category": category,
            "country": country,
            
@@ -41,7 +41,7 @@ def get_news(country,category, from_date, to_date, api_key,country_name):
    
        params = {
            "token": API_KEY,
-           "q":f"{category} AND {country_name.capitalize()}",
+           "q":f"{category} AND {country_name}",
            "category": category,
            "country": country,
            "from": from_date_iso,
@@ -124,7 +124,7 @@ elif intro == "**_:blue[Check In for News App]_**":
                           
                           if country_code is not None and selected_category is not None:
                                
-                               dff=pd.DataFrame(get_news(country_code.lower(),selected_category.lower(),from_date,to_date,"YOUR                               APIKEY",selected_country.lower()))
+                               dff=pd.DataFrame(get_news(country_code.lower(),selected_category.lower(),from_date,to_date,"YOUR  APIKEY",selected_country))
                               
                                if  not dff.empty:
                                     dff['links'] = dff['link']
