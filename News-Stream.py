@@ -33,8 +33,7 @@ except Exception as e:
 fields = "name,cca2" 
 response = requests.get(f"https://restcountries.com/v3.1/all?fields={fields}")
 st.set_page_config(page_title="streamlit News App", page_icon=":newspaper:", layout="wide")
-#st.title("                📰:rainbow[ News and Sentiment] 🗞️                ")
-#st.markdown("<h1 style='text-align: center; color: #1f77b4;'>📰News and Sentiment🗞️</h1>", unsafe_allow_html=True)
+
 search_text=""
 country_code=""
 stop_words = set(stopwords.words('english'))
@@ -44,10 +43,7 @@ def get_vader_sentiment(text):
    
     if pd.isna(text) or not isinstance(text, str): # Handle potential NaN or non-string values
         return {'neg': 0.0, 'neu': 0.0, 'pos': 0.0, 'compound': 0.0, 'overall_sentiment': 'Neutral (N/A)'}
-    #if isinstance(text,str):
-       # words=text.lower().split()
-        #words=[word for word in words if word not in stop_words and word not in string.punctuation]
-       # processed_text = " ".join(words)
+   
     processed_texts=preprocess_text(text)
     scores = sid.polarity_scores(processed_texts)
     compound_score = scores['compound']
@@ -71,11 +67,11 @@ def preprocess_text(text):
     text = text.lower()
     text = re.sub(r'[^a-z\s]', '', text) # Remove non-alphabetic characters
     words = text.split()
-   # stop_words = set(stopwords.words('english'))
+ 
     words = [word for word in words if word not in stop_words]
     return " ".join(words)
 def intro_page():
-     #st.markdown("<h1 style='text-align: center;'>📰 Welcome to the News and Sentiment Analyzer! 🗞️</h1>", unsafe_allow_html=True) 
+  
     st.title("📰 _:rainbow[Welcome to the News and Sentiment Analyzer!] 🗞️_")
 
     st.write("---")
@@ -129,7 +125,7 @@ def intro_page():
    
 def get_news(country,category, from_date, to_date, api_key,country_name):
     
-    API_KEY = "358b617c0fc1638333b6c9d449fae32f" 
+    API_KEY = "your api key" 
     
 
     if category == 'headlines':
@@ -146,8 +142,7 @@ def get_news(country,category, from_date, to_date, api_key,country_name):
     elif category =="search by keyword":  
        
        url = "https://gnews.io/api/v4/search"
-       #from_date_iso = from_date.isoformat() + "T00:00:00Z"
-      # to_date_iso = to_date.isoformat() + "T23:59:59Z" 
+      
        
        if country == '':
            country=""
@@ -155,10 +150,9 @@ def get_news(country,category, from_date, to_date, api_key,country_name):
        params = {
            "token": API_KEY,
            "q":preprocess_text(search_text),
-           #"category": category,
+         
            "country": country,
-          # "from": from_date_iso,
-         #  "to": to_date_iso,
+       
            "lang": "en",  
            "max": 3     
        }  
@@ -213,12 +207,10 @@ def get_news(country,category, from_date, to_date, api_key,country_name):
   
 intro = st.sidebar.radio('Main Menu',["**_:blue[Introduction]_**","**_:blue[Check In for News App]_**"])
 if  intro== "**_:blue[Introduction]_**":    
-    #main_frame()  
+  
     intro_page()
 elif intro == "**_:blue[Check In for News App]_**":  
-    #st.title("📖 _:orange[News App]_")
-
-   # st.header("🗞️ :blue[News and Sentiment]", divider="rainbow")
+  
 
 
     selected_question = st.sidebar.selectbox( "**_:rainbow[Select a Question to View Analysis]_**", ['Search News','Cluster','Report'],index=None)
@@ -255,9 +247,9 @@ elif intro == "**_:blue[Check In for News App]_**":
                       if (search):
                           
                           if country_code is not None and selected_category is not None:
-                               #dff=pd.DataFrame(get_news(country_code.lower(),selected_category.lower(),from_date,to_date,"ac906e1373b34ad2ba54c1bae3c360ca",selected_country))
+                          
                                dff=pd.DataFrame(get_news(country_code.lower(),selected_category.lower(),from_date,to_date,
-                                                                 "ac906e1373b34ad2ba54c1bae3c360ca",selected_country))
+                                                                 "your api key",selected_country))
                                                                  
                                if  not dff.empty:
                                     sentiment_results = dff['Short_description'].apply(lambda x: pd.Series(get_vader_sentiment(x)))
@@ -335,10 +327,7 @@ elif intro == "**_:blue[Check In for News App]_**":
                      ax.set_title(cluster_title, fontsize=12, wrap=True)
                      ax.axis('off')
              
-                    # plt.subplot(n_rows, n_cols, i + 1) # Create subplot
-                    # plt.imshow(wordcloud, interpolation='bilinear')
-                    # plt.title(cluster_title, fontsize=12, wrap=True) # Use the meaningful title
-                    # plt.axis('off')
+                   
               for j in range(n_clusters, n_rows * n_cols):
                                 axes[j].set_visible(False)
               plt.tight_layout() # Adjust layout to prevent titles/plots from overlapping
@@ -362,8 +351,7 @@ elif intro == "**_:blue[Check In for News App]_**":
     elif selected_question == 'Report':
         st.header("📊 :rainbow[Yearly News Report]", divider="rainbow")
 
-        # Assume you have a combined.csv or similar file with historical data
-        # For a full yearly report, you'd need significantly more data than the GNews API free tier provides
+      
         try:
             df_report = pd.read_csv(r'c:\users\91904\combinedsent.csv')
             df_report['Date'] = pd.to_datetime(df_report['date']) # Ensure 'Date' column is datetime
