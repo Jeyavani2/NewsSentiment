@@ -164,4 +164,19 @@ This project is designed for deployment on Amazon Web Services (AWS) using:
 
 ---
 
-## Project Structure
+---
+
+## API Key
+
+This project uses the GNews API. Please obtain your API key from [https://gnews.io/](https://gnews.io/). For security, it is highly recommended to store your API key as an environment variable rather than hardcoding it directly in the script, especially in a deployed environment.
+
+---
+
+## Future Enhancements
+
+* **Dynamic Data Ingestion:** Implement a script or AWS Lambda function to regularly fetch new news data from the GNews API and update the S3 files or RDS database automatically.
+* **Improved API Key Management:** Fully transition to environment variables or AWS Secrets Manager for all API keys and sensitive credentials.
+* **Advanced NLP Models:** Explore using more sophisticated pre-trained NLP models (e.g., from Hugging Face Transformers) for potentially higher accuracy in sentiment analysis or more detailed topic modeling.
+* **User Interface Refinements:** Enhance the Streamlit UI with more interactive elements, filtering options, and potentially user accounts.
+* **Robust Error Handling:** Implement more comprehensive error handling and logging, especially for API calls and data processing.
+
