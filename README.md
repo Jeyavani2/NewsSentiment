@@ -162,15 +162,14 @@ This project is designed for deployment on Amazon Web Services (AWS) using:
     * **For EC2/ECS:** Set up your EC2 instance or ECS cluster, install dependencies, and run your Streamlit application, potentially behind a web server (like Nginx) for production access.
 5.  **Configure Security:** Set up appropriate AWS VPC, Security Groups, and IAM roles to control access and ensure secure communication between your application, S3, and RDS.
 
----
 
----
+
 
 ## API Key
 
 This project uses the GNews API. Please obtain your API key from [https://gnews.io/](https://gnews.io/). For security, it is highly recommended to store your API key as an environment variable rather than hardcoding it directly in the script, especially in a deployed environment.
 
----
+
 
 ## Future Enhancements
 
